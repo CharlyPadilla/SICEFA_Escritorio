@@ -1,0 +1,27 @@
+.root {
+    -fx-font-size: 16;
+    -fx-text-fill: #1c1c1c;
+}
+
+.btn {
+    -fx-font-size: 14;
+}
+
+.btn:hover {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #1c1c1c;
+}
+
+.label {
+    -fx-font-size: 14;
+    -fx-text-fill: #1c1c1c;
+}
+
+.anchor-pane {
+    -fx-background-color: #caf0f8;
+    -fx-background-radius: 10; /* Ajusta el radio según tus preferencias */
+}
+
+#logoImageView {
+    -fx-effect: dropshadow(three-pass-box, #1c1c1c, 10, 0, 0, 0);
+}

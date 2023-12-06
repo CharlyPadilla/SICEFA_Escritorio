@@ -1,0 +1,21 @@
+.My-Color-Theme-2-hex {
+    -fx-background-color: #37474F; /* Cambia el color de fondo según tus preferencias */
+}
+
+.label {
+    -fx-text-fill: #FFFFFF; /* Cambia el color del texto según tus preferencias */
+}
+
+.button {
+    -fx-font-size: 16.0; /* Cambia el tamaño de fuente según tus preferencias */
+}
+
+.btnLogin {
+    -fx-background-color: #4CAF50; /* Color de fondo para el botón "Sí" */
+    -fx-text-fill: #FFFFFF; /* Color de texto para el botón "Sí" */
+}
+
+.btnCancel {
+    -fx-background-color: #FF5252; /* Color de fondo para el botón "Verificar" */
+    -fx-text-fill: #FFFFFF; /* Color de texto para el botón "Verificar" */
+}

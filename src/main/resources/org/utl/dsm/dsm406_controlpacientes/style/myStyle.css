@@ -1,0 +1,153 @@
+/*
+//Definir estilos a elementos
+label{
+    -fx-text-fill:white;
+}
+//Definir estilos por Ids
+#txtTitulo{
+    -fx-text-fill:red;
+}
+//Definir estilos por clase
+.etiqueta{
+    -fx-text-fill:green;
+}
+
+
+.menu {
+    -fx-background-color: transparent;
+}
+.menu .label {
+    -fx-text-fill: white;
+}
+.menu:hover,
+.menu:showing {
+    -fx-background-color: #282C33;
+    -fx-text-fill: black;
+}
+
+//Sirve para las subopciones dentro de la barra
+.menu-item {
+    -fx-background-color: #40464F;
+    -fx-text-fill: red;
+    -fx-font-family: verdana;
+    -fx-font-size: 11.4px;
+}
+.menu-item .label {
+    -fx-text-fill: #000000;
+    -fx-font-family: verdana;
+}
+.menu-item:focused .label {
+    -fx-text-fill: #000000;
+    -fx-font-family: verdana;
+}
+.menu-item:focused {
+    -fx-background: -fx-accent;
+    -fx-background-color: #91C9F7;
+    -fx-text-fill: #000000;
+    -fx-font-family: verdana;
+}
+.menu-item:disabled {
+    -fx-background: -fx-accent;
+    -fx-text-fill: #000000;
+    -fx-opacity: 0.9;
+    -fx-font-family: verdana;
+}
+.menu-item:focused:disabled {
+    -fx-background: -fx-accent;
+    -fx-background-color: lightgray;
+    -fx-text-fill: #000000;
+    -fx-font-family: verdana;
+    -fx-opacity: 0.9;
+}
+
+.menuLateral{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+menuLateral .hover{
+    -fx-background-color: #39598F;
+}
+ */
+
+.menu {
+    -fx-background-color: transparent;
+}
+.menu .label {
+    -fx-text-fill: white;
+}
+.menu:hover,
+.menu:showing {
+    -fx-background-color: #282c33;
+    -fx-text-fill: white;
+}
+.menu-item {
+    -fx-background-color:  #282c33;
+    -fx-text-fill: white;
+    -fx-font-family: verdana;
+    -fx-font-size: 11.4px;
+}
+.menu-item .label {
+    -fx-text-fill: white;
+    -fx-font-family: verdana;
+}
+.menu-item:focused .label {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: verdana;
+}
+
+.menu-item:focused {
+    -fx-background: -fx-accent;
+    -fx-background-color: #404040;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: verdana;
+}
+
+.menu-item:disabled {
+    -fx-background: -fx-accent;
+    -fx-text-fill: #FFFFFF;
+    -fx-opacity: 0.9;
+    -fx-font-family: verdana;
+}
+
+.menu-item:focused:disabled {
+    -fx-background: -fx-accent;
+    -fx-background-color: lightgray;
+    -fx-text-fill: #000000;
+    -fx-font-family: verdana;
+    -fx-opacity: 0.9;
+}
+.button {
+    -fx-background-color: #000000;
+    -fx-text-fill: white;
+}
+
+.menu-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+.button:hover {
+    -fx-background-color: #404040; /* Cambia a un gris más oscuro al pasar el cursor */
+    -fx-text-fill: white; /* Cambia el color del texto a negro */
+}
+
+.menu-button > .label {
+    -fx-text-fill: white;
+}
+
+.menu-button:hover {
+    -fx-background-color: #404040; /* Cambia a un gris más oscuro al pasar el cursor */
+}
+
+.menu-button:hover > .label {
+    -fx-text-fill: white; /* Cambia el color del texto a blanco durante el hover */
+}
+/* Estilos para el menú lateral */
+.menuLateral {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.menuLateral:hover {
+    -fx-background-color: #99BEFF;
+}
