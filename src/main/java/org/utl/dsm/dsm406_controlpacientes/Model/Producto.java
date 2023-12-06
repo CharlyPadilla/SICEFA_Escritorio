@@ -214,6 +214,6 @@ public class Producto {
 
     @Override
     public String toString() {
-        return "Producto{" + "idProducto=" + idProducto + ", nombre=" + nombre + ", nombreGenerico=" + nombreGenerico + ", formaFarmaceutica=" + formaFarmaceutica + ", unidadMedida=" + unidadMedida + ", presentacion=" + presentacion + ", principalIndicacion=" + principalIndicacion + ", contraindicaciones=" + contraindicaciones + ", concentracion=" + concentracion + ", unidadesEnvase=" + unidadesEnvase + ", precioCompra=" + precioCompra + ", precioVenta=" + precioVenta + ", foto=" + foto + ", rutaFoto=" + rutaFoto + ", codigoBarras=" + codigoBarras + ", estatus=" + estatus + '}';
+        return "{" + "idProducto=" + idProducto + ", nombre=" + nombre + ", nombreGenerico=" + nombreGenerico + ", formaFarmaceutica=" + formaFarmaceutica + ", unidadMedida=" + unidadMedida + ", presentacion=" + presentacion + ", principalIndicacion=" + principalIndicacion + ", contraindicaciones=" + contraindicaciones + ", concentracion=" + concentracion + ", unidadesEnvase=" + unidadesEnvase + ", precioCompra=" + precioCompra + ", precioVenta=" + precioVenta + ", foto=" + foto + ", rutaFoto=" + rutaFoto + ", codigoBarras=" + codigoBarras + ", estatus=" + estatus + '}';
     }
 }

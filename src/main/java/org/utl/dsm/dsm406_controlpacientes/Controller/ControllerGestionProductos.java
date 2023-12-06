@@ -50,10 +50,7 @@ public class ControllerGestionProductos implements Initializable {
     private Button btnModificar;
     @FXML
     private Button btnRegistrar;
-    @FXML
-    private TextField precioCompra;
-    @FXML
-    private TextField precioVenta;
+
     @FXML
     private TableView<Producto> tblRegistrosProductos;
     @FXML
@@ -71,7 +68,6 @@ public class ControllerGestionProductos implements Initializable {
 
     @FXML
     private TextField txtBuscar;
-
     @FXML
     private TextField txtCodigoBarras;
 
@@ -105,11 +101,16 @@ public class ControllerGestionProductos implements Initializable {
     @FXML
     private TextField txtUnidadEnvase;
 
+    @FXML
+    private TextField txtprecioCompra;
+
+    @FXML
+    private TextField txtprecioVenta;
 
 
     public void getAll() throws UnirestException {
         System.out.println("Recuperando registros mediante metodo Post");
-        HttpResponse<JsonNode> respuestaServidor = Unirest.get("http://localhost:8080/moduloProductosSeparado/producto/GestionProductos/registros").asJson();
+        HttpResponse<JsonNode> respuestaServidor = Unirest.get("http://localhost:8080/sicefa/api/producto/registros").asJson();
         String registros = respuestaServidor.getBody().toString();
         System.out.println(registros);
         Gson gson = new Gson(); // Para convertir Json a objetos
@@ -190,7 +191,15 @@ public class ControllerGestionProductos implements Initializable {
                 throw new RuntimeException(e);
             }
         });
- 
+
+        btnRegistrar.setOnAction(event -> {
+            try {
+                agregarRegistro();
+            } catch (UnirestException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         try {
             getAll();
         } catch (UnirestException e) {
@@ -263,5 +272,83 @@ public class ControllerGestionProductos implements Initializable {
         // Para cerrar la ventana Login:
         Stage ventanaLogin = (Stage) menuOpciones.getScene().getWindow();
         ventanaLogin.close();
+    }
+
+    public Producto recuperarDatos() {
+
+        String nombre=txtNombre.getText();
+        String nombreGenerico=txtNombreGenerico.getText();
+        String formaFarmaceutica=txtFormaFarmaceutica.getText();
+        String unidadMedida=txtUnidadDeMedida.getText();
+        String presentacion=txtPresentacion.getText();
+        String principalIndicacion=txtPrincipalIndicacion.getText();
+        String contraindicaciones=txtPrincipalIndicacion.getText();
+        String concentracion=txtConcentracion.getText();
+        int unidadesEnvase=Integer.parseInt(txtUnidadEnvase.getText());
+        float precioCompra=Float.parseFloat(txtprecioCompra.getText());
+        float precioVenta=Float.parseFloat(txtprecioVenta.getText());
+        String codigoBarras=txtCodigoBarras.getText();
+        int estatus=1;
+
+        Producto Registro= new Producto(
+                nombre,
+                nombreGenerico,
+                formaFarmaceutica,
+                unidadMedida,
+                presentacion,
+                principalIndicacion,
+                contraindicaciones,concentracion,
+                unidadesEnvase,
+                precioCompra,
+                precioVenta,
+                codigoBarras,
+                estatus);
+
+        System.out.println("Desde metodo recuperarDatos"+ Registro);
+        return Registro;
+
+    }
+
+    public void agregarRegistro() throws UnirestException {
+        System.out.println("Enviando registro mediante metodo Post");
+        //Recuperamos los datos del formulario
+        Producto regitstroEnviar = recuperarDatos();
+
+        // Crear un objeto Gson
+        Gson gson = new Gson();
+
+        // Convertir la instancia de Persona a JSON
+        String json = gson.toJson(regitstroEnviar);
+        System.out.println("Desde agregar registros"+json);
+
+        System.out.println("HaciendoPeticion");
+        // Enviar la cadena JSON al servicio usando Unirest
+        // Realizar la solicitud HTTP con Unirest
+        HttpResponse<String> enviarRegistro = Unirest.post("http://localhost:8080/sicefa/api/producto/insertarProducto")
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .field("Producto", json)
+                .asString(); // Enviar el objeto Producto como un campo del formulario
+
+
+        /* HttpResponse es una clase proporcionada por la biblioteca Unirest para representar la respuesta de una
+        solicitud HTTP.
+
+        <String> indica que la respuesta será tratada como una cadena de texto.
+
+        response es el nombre de la variable que almacenará la respuesta de la solicitud HTTP realizada.
+
+       Unirest.post(........) inicia una solicitud HTTP POST a la URL especificada
+
+        .field("Producto", json): Este método .field() agrega un campo al formulario de la solicitud POST. En este caso,
+        se agrega un campo llamado "Producto" y el valor de este campo es la cadena JSON json. Esto está configurado para
+         enviar tu objeto Producto en formato JSON como parte de los datos del formulario
+
+         asString(); indica que después de realizar la solicitud HTTP POST y enviar los datos al servidor, se esperara
+         recibir una respuesta del servidor y se tratara esa respuesta como una cadena de texto.  Luego, se usa
+         response.getBody() para obtener y trabajar con esa respuesta como una cadena .
+
+            */
+        System.out.println(enviarRegistro.getStatus());
+        getAll();
     }
 }
