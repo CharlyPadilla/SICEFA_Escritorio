@@ -59,5 +59,16 @@ public class Cliente {
     public void setPersonaCliente(Persona personaCliente) {
         this.personaCliente = personaCliente;
     }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "idCliente=" + idCliente +
+                ", emailCliente='" + emailCliente + '\'' +
+                ", fechaRegistroCliente='" + fechaRegistroCliente + '\'' +
+                ", estatusCliente=" + estatusCliente +
+                ", personaCliente=" + personaCliente +
+                '}';
+    }
 }
 
