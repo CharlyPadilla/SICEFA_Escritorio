@@ -14,7 +14,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -26,49 +32,113 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.utl.dsm.dsm406_controlpacientes.Main;
 import org.utl.dsm.dsm406_controlpacientes.Model.Cliente;
 import org.utl.dsm.dsm406_controlpacientes.Model.Persona;
+import org.utl.dsm.dsm406_controlpacientes.Model.Sucursal;
 
 public class ControllerGestionClientes implements Initializable {
 
-    @FXML private Button btnBarraInicio;
-    @FXML private Button btnBarraClientes;
-    @FXML private Button btnBarraEmpleados;
-    @FXML private Button btnBarraCompras;
-    @FXML private Button btnBarraProductos;
-    @FXML private Button btnBarraVentas;
-    @FXML private MenuButton menuOpciones;
-    @FXML private MenuItem btnCerrarSesion;
+    @FXML
+    private Button btnBarraClientes;
 
-    @FXML private Button btnEliminar;
-    @FXML private Button btnLimpiar;
-    @FXML private Button btnModificar;
-    @FXML private Button btnRegistrar;
+    @FXML
+    private Button btnBarraCompras;
 
-    @FXML private TableView<Cliente> tblRegistros;
-    @FXML private TableColumn<Cliente, String> tcolApellidoM;
-    @FXML private TableColumn<Cliente, String> tcolApellidoP;
-    @FXML private TableColumn<Cliente, String> tcolEstatus;
-    @FXML private TableColumn<Cliente, String> tcolNombre;
-    @FXML private TextField txtApellidoM;
-    @FXML private TextField txtApellidoP;
-    @FXML private TextField txtBuscar;
-    @FXML private TextField txtCiudad;
-    @FXML private TextField txtCodigoPostal;
-    @FXML private TextField txtColonia;
-    @FXML private TextField txtCorreo;
-    @FXML private TextField txtCurp;
-    @FXML private TextField txtDomicilio;
-    @FXML private TextField txtEstado;
-    @FXML private DatePicker txtFechaNac;
-    @FXML private TextField txtFoto;
-    @FXML private TextField txtGenero;
-    @FXML private TextField txtID;
-    @FXML private TextField txtNombre;
-    @FXML private TextField txtRfc;
-    @FXML private TextField txtTelefono;
+    @FXML
+    private Button btnBarraEmpleados;
+
+    @FXML
+    private Button btnBarraInicio;
+
+    @FXML
+    private Button btnBarraProductos;
+
+    @FXML
+    private Button btnBarraVentas;
+
+    @FXML
+    private MenuItem btnCerrarSesion;
+
+    @FXML
+    private Button btnEliminar;
+
+    @FXML
+    private Button btnLimpiar;
+
+    @FXML
+    private Button btnModificar;
+
+    @FXML
+    private Button btnRegistrar;
+
+    @FXML
+    private MenuButton menuOpciones;
+
+    @FXML
+    private TableView<Cliente> tblRegistros;
+
+    @FXML
+    private TableColumn<Cliente, String> tcloApellidoP;
+
+    @FXML
+    private TableColumn<Cliente, String> tcolApellidoM;
+
+    @FXML
+    private TableColumn<Cliente, Integer> tcolId;
+
+    @FXML
+    private TableColumn<Cliente, String> tcolNombre;
+
+    @FXML
+    private TextField txtApellidoM;
+
+    @FXML
+    private TextField txtApellidoP;
+
+    @FXML
+    private TextField txtBuscar;
+
+    @FXML
+    private TextField txtCiudad;
+
+    @FXML
+    private TextField txtCodigoPostal;
+
+    @FXML
+    private TextField txtCorreo;
+
+    @FXML
+    private TextField txtCurp;
+
+    @FXML
+    private TextField txtDomicilio;
+
+    @FXML
+    private TextField txtEstado;
+
+    @FXML
+    private TextField txtFechaNac;
+
+    @FXML
+    private TextField txtFoto;
+
+    @FXML
+    private TextField txtGenero;
+
+    @FXML
+    private TextField txtID;
+
+    @FXML
+    private TextField txtNombre;
+
+    @FXML
+    private TextField txtRfc;
+
+    @FXML
+    private TextField txtTelefono;
 
 
     @Override
@@ -130,14 +200,17 @@ public class ControllerGestionClientes implements Initializable {
             }
         });
 
-
+        tblRegistros.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                mostrarInfoEmpleado(newValue);
+            }
+        });
 
         Gson gson = new Gson();
-        HttpResponse<JsonNode> apiResponse = null;
         Alert alert = null;
-        try {
+        try{
             cargarTabla();
-        } catch (Exception ex) {
+        }catch (Exception ex){
             ex.printStackTrace();
             alert = new Alert(Alert.AlertType.ERROR,
                     "Error en la peticion");
@@ -145,45 +218,97 @@ public class ControllerGestionClientes implements Initializable {
         }
 
         btnRegistrar.setOnAction(event -> {
-            HttpResponse<JsonNode> apiResponse2 = null;
-            Alert alert2 = null;
-            try {
-                Persona p = new Persona();
-                p.setNombrePersona(txtNombre.getText());
-                p.setApellidoPaternoPersona(txtApellidoP.getText());
-                p.setApellidoMaternoPersona(txtApellidoM.getText());
-                p.setCiudadPersona(txtCiudad.getText());
-                p.setCodigoPostalPersona(txtCodigoPostal.getText());
-                p.setColoniaPersona(txtColonia.getText());
-                p.setCurpPersona(txtCurp.getText());
-                p.setDomicilioPersona(txtDomicilio.getText());
-                p.setEstadoPersona(txtEstado.getText());
-                p.setFechaNacimientoPersona(txtFechaNac.getValue().toString());
-                p.setFotoPersona(txtFoto.getText());
-                p.setGeneroPersona(txtGenero.getText());
-                p.setRfcPersona(txtRfc.getText());
-                p.setTelefonoPersona(txtTelefono.getText());
-
-                Cliente c = new Cliente();
-                c.setPersonaCliente(p);
-                c.setEmailCliente(txtCorreo.getText());
-
-                String params = gson.toJson(c);
-
-                apiResponse2 = Unirest.post("http://localhost:8080/sicefa/api/cliente/insertCliente")
-                        .field("datosCliente", params)
+            HttpResponse<JsonNode> apiResponse1 = null;
+            Alert alert1 = null;
+            try{
+                String nombreCliente = txtNombre.getText();
+                String apellidoP = txtApellidoP.getText();
+                String apellidoM = txtApellidoM.getText();
+                String generoCliente = txtGenero.getText();
+                String fechaNac = txtFechaNac.getText();
+                String rfc = txtRfc.getText();
+                String curp = txtCurp.getText();
+                String foto = txtFoto.getText();
+                String domicilio = txtDomicilio.getText();
+                String codigoPostal = txtCodigoPostal.getText();
+                String ciudad = txtCiudad.getText();
+                String estado = txtEstado.getText();
+                String telefono = txtTelefono.getText();
+                String correo = txtCorreo.getText();
+                String datosCliente = "{emailCliente="+"'"+correo+"'"+", personaCliente{ nombrePersona="+"'"+nombreCliente+"'"+", apellidoPaternoPersona="+"'"+apellidoP+"'"+", apellidoMaternoPersona="+"'"+apellidoM+"'"+", generoPersona="+"'"+generoCliente+"'"+", fechaNacimientoPersona="+"'"+fechaNac+"'"+", rfcPersona="+"'"+rfc+"'"+", curpPersona="+"'"+curp+"'"+", domicilioPersona="+"'"+domicilio+"'"+", codigoPostalPersona="+"'"+codigoPostal+"'"+", ciudadPersona="+"'"+ciudad+"'"+", estadoPersona="+"'"+estado+"'"+", telefonoPersona="+"'"+telefono+"'"+", fotoPersona="+"'"+foto+"'"+"}}";
+                System.out.println("Datos del cliente que se va a registrar: "+datosCliente);
+                apiResponse1 = Unirest.post("http://localhost:8080/sicefa/api/cliente/insertCliente")
+                        .field("datosSucursal",datosCliente)
                         .asJson();
-
-                alert2 = new Alert(Alert.AlertType.CONFIRMATION,
+                alert1 = new Alert(Alert.AlertType.CONFIRMATION,
                         "Datos ingresados correctamente");
-                alert2.show();
+                alert1.show();
                 cargarTabla();
-            } catch (Exception ex) {
+                limpiar();
+            }catch (Exception ex){
                 ex.printStackTrace();
-                System.out.println(apiResponse2.getBody().toString());
-                alert2 = new Alert(Alert.AlertType.ERROR,
-                        "Error en la petición");
-                alert2.show();
+                alert1 = new Alert(Alert.AlertType.ERROR,
+                        "Error en la peticion");
+                alert1.show();
+            }
+        });
+
+        btnModificar.setOnAction(event -> {
+            HttpResponse<JsonNode> apiResponse1 = null;
+            Alert alert1 = null;
+            try{
+                int idCliente = Integer.parseInt(txtID.getText());
+                String nombreCliente = txtNombre.getText();
+                String apellidoP = txtApellidoP.getText();
+                String apellidoM = txtApellidoM.getText();
+                String generoCliente = txtGenero.getText();
+                String fechaNac = txtFechaNac.getText();
+                String rfc = txtRfc.getText();
+                String curp = txtCurp.getText();
+                String foto = txtFoto.getText();
+                String domicilio = txtDomicilio.getText();
+                String codigoPostal = txtCodigoPostal.getText();
+                String ciudad = txtCiudad.getText();
+                String estado = txtEstado.getText();
+                String telefono = txtTelefono.getText();
+                String correo = txtCorreo.getText();
+                String datosCliente = "{idCliente="+idCliente+", emailCliente="+"'"+correo+"'"+", personaCliente{ nombrePersona="+"'"+nombreCliente+"'"+", apellidoPaternoPersona="+"'"+apellidoP+"'"+", apellidoMaternoPersona="+"'"+apellidoM+"'"+", generoPersona="+"'"+generoCliente+"'"+", fechaNacimientoPersona="+"'"+fechaNac+"'"+", rfcPersona="+"'"+rfc+"'"+", curpPersona="+"'"+curp+"'"+", domicilioPersona="+"'"+domicilio+"'"+", codigoPostalPersona="+"'"+codigoPostal+"'"+", ciudadPersona="+"'"+ciudad+"'"+", estadoPersona="+"'"+estado+"'"+", telefonoPersona="+"'"+telefono+"'"+", fotoPersona="+"'"+foto+"'"+"}}";
+                System.out.println("Datos del cliente que se va a registrar: "+datosCliente);
+                apiResponse1 = Unirest.post("http://localhost:8080/sicefa/api/cliente/updateCliente")
+                        .field("datosSucursal",datosCliente)
+                        .asJson();
+                alert1 = new Alert(Alert.AlertType.CONFIRMATION,
+                        "Datos actualizados correctamente");
+                alert1.show();
+                cargarTabla();
+                limpiar();
+            }catch (Exception ex){
+                ex.printStackTrace();
+                alert1 = new Alert(Alert.AlertType.ERROR,
+                        "Error en la peticion");
+                alert1.show();
+            }
+        });
+
+        btnEliminar.setOnAction(event -> {
+            HttpResponse<JsonNode> apiResponse1 = null;
+            Alert alert1 = null;
+            try{
+                int idSucursal = Integer.parseInt(txtID.getText());
+                System.out.println("id de la sucursal que se va a registrar: "+idSucursal);
+                apiResponse1 = Unirest.post("http://localhost:8080/sicefa/api/sucursal/deleteSucursal")
+                        .field("idSucursal",idSucursal)
+                        .asJson();
+                alert1 = new Alert(Alert.AlertType.CONFIRMATION,
+                        "Sucursal eliminada correctamente");
+                alert1.show();
+                cargarTabla();
+                limpiar();
+            }catch (Exception ex){
+                ex.printStackTrace();
+                alert1 = new Alert(Alert.AlertType.ERROR,
+                        "Error en la peticion");
+                alert1.show();
             }
         });
     }
@@ -275,24 +400,60 @@ public class ControllerGestionClientes implements Initializable {
     }
 
 
-
     public void cargarTabla() throws UnirestException {
+        Gson gson = new Gson();
         HttpResponse<JsonNode> apiResponse = null;
         Alert alert = null;
-        Gson gson = new Gson();
         apiResponse = Unirest.get("http://localhost:8080/sicefa/api/cliente/getAll").asJson();
         alert = new Alert(Alert.AlertType.INFORMATION,
                 "Mensaje: ");
         String registros = apiResponse.getBody().toString();
-        Cliente[] arrayPersona = gson.fromJson(registros,Cliente[].class);
-        System.out.println(arrayPersona[0].toString());
+        Cliente[] arrayCliente = gson.fromJson(registros,Cliente[].class);
+        System.out.println(arrayCliente[0].toString());
         System.out.println(registros);
-        ArrayList<Cliente> listaPersona = new ArrayList<>(Arrays.asList(arrayPersona));
-        ObservableList<Cliente> registrosPersona = FXCollections.observableArrayList(listaPersona);
-        tblRegistros.setItems(registrosPersona);
+        ArrayList<Cliente> listaClientes = new ArrayList<>(Arrays.asList(arrayCliente));
+        ObservableList<Cliente> registrosCliente = FXCollections.observableArrayList(listaClientes);
+        tblRegistros.setItems(registrosCliente);
         tcolNombre.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getPersonaCliente().getNombrePersona()));
-        tcolApellidoP.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getPersonaCliente().getApellidoPaternoPersona()));
         tcolApellidoM.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getPersonaCliente().getApellidoMaternoPersona()));
-        tcolEstatus.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getPersonaCliente().getTelefonoPersona()));
+        tcolId.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getIdCliente()));
+        tcloApellidoP.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getPersonaCliente().getApellidoPaternoPersona()));
     }
+
+    public void limpiar(){
+        txtID.setText("");
+        txtNombre.setText("");
+        txtApellidoP.setText("");
+        txtApellidoM.setText("");
+        txtGenero.setText("");
+        txtFechaNac.setText("");
+        txtRfc.setText("");
+        txtCurp.setText("");
+        txtFoto.setText("");
+        txtDomicilio.setText("");
+        txtCodigoPostal.setText("");
+        txtCiudad.setText("");
+        txtEstado.setText("");
+        txtTelefono.setText("");
+        txtCorreo.setText("");
+    }
+
+    private void mostrarInfoEmpleado(Cliente cliente) {
+        txtID.setText(String.valueOf((cliente.getIdCliente())));
+        txtNombre.setText(cliente.getPersonaCliente().getNombrePersona());
+        txtApellidoP.setText(cliente.getPersonaCliente().getApellidoPaternoPersona());
+        txtApellidoM.setText(cliente.getPersonaCliente().getApellidoMaternoPersona());
+        txtGenero.setText(cliente.getPersonaCliente().getGeneroPersona());
+        txtFechaNac.setText(cliente.getPersonaCliente().getFechaNacimientoPersona());
+        txtRfc.setText(cliente.getPersonaCliente().getRfcPersona());
+        txtCurp.setText(cliente.getPersonaCliente().getCurpPersona());
+        txtFoto.setText(cliente.getPersonaCliente().getFotoPersona());
+        txtDomicilio.setText(cliente.getPersonaCliente().getDomicilioPersona());
+        txtCodigoPostal.setText(cliente.getPersonaCliente().getCodigoPostalPersona());
+        txtCiudad.setText(cliente.getPersonaCliente().getCiudadPersona());
+        txtEstado.setText(cliente.getPersonaCliente().getEstadoPersona());
+        txtTelefono.setText(cliente.getPersonaCliente().getTelefonoPersona());
+        txtCorreo.setText(cliente.getEmailCliente());
+    }
+
 }
