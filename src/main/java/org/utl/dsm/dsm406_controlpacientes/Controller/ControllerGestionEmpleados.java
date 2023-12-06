@@ -66,10 +66,6 @@ public class ControllerGestionEmpleados implements Initializable {
     @FXML private TextField txtRfc;
     @FXML private TextField txtTelefono;
 
-    @FXML
-    private void handleCambioEnCampos() {
-        actualizarEstadoBtnRegistrar();
-    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -130,6 +126,7 @@ public class ControllerGestionEmpleados implements Initializable {
             }
         });
 
+        btnModificar.setDisable(true);
         btnModificar.setOnAction(event -> {
             try {
                 mostarAvisoModificar("¿Todos los datos a modificar son correctos?");
@@ -141,6 +138,14 @@ public class ControllerGestionEmpleados implements Initializable {
         btnRegistrar.setOnAction(event -> {
             try {
                 mostrarAvisoRegistrar("¿Todos los datos son correctos?");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        btnEliminar.setDisable(true);
+        btnEliminar.setOnAction(event -> {
+            try {
+                mostrarAvisoEliminar("¿Está seguro de que quiere eliminar el registro?");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -160,6 +165,7 @@ public class ControllerGestionEmpleados implements Initializable {
                 mostrarInfoEmpleado(newValue);
             }
         });
+
 
         txtID.textProperty().addListener((observable, oldValue, newValue) -> handleCambioEnCampos());
         txtNombre.textProperty().addListener((observable, oldValue, newValue) -> handleCambioEnCampos());
@@ -324,7 +330,28 @@ public class ControllerGestionEmpleados implements Initializable {
             popup.hide();
         });
         popup.getContent().add(root);
-        popup.show(btnModificar.getScene().getWindow());
+        popup.show(btnRegistrar.getScene().getWindow());
+    }
+
+    private void mostrarAvisoEliminar(String mensaje) throws IOException {
+        Popup popup = new Popup();
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("view_alertaAviso.fxml"));
+        Parent root = loader.load();
+        ControllerAlertaAviso controller = loader.getController();
+        Button btnAceptar = controller.getBtnAceptar();
+        Button btnCancelar = controller.getBtnCancelar();
+        Label lblTitulo = controller.getLblTitulo();
+        lblTitulo.setText(mensaje);
+        btnAceptar.setOnAction(event -> {
+            eliminarEmpleado();
+            popup.hide();
+        });
+        btnCancelar.setOnAction(event -> {
+            // Código que se ejecutara si da clic en boton cancelar
+            popup.hide();
+        });
+        popup.getContent().add(root);
+        popup.show(btnEliminar.getScene().getWindow());
     }
 
     private void registrarEmpleado() {
@@ -352,6 +379,8 @@ public class ControllerGestionEmpleados implements Initializable {
         System.out.println("Apunto de modificar empleado");
     }
 
+    private void eliminarEmpleado() {
+    }
     public void limpiarCampos(){
         txtID.setText("");
         txtNombre.setText("");
@@ -397,15 +426,27 @@ public class ControllerGestionEmpleados implements Initializable {
 
 
 
-
+    @FXML
+    private void handleCambioEnCampos() {
+        actualizarEstadoBtnRegistrar();
+        actualizarEstadoBtnModificarEliminar();
+    }
 
     // Método para habilitar/deshabilitar el botón Registrar según el estado de los campos
     private void actualizarEstadoBtnRegistrar() {
         btnRegistrar.setDisable(!verificarCamposVacios());
     }
+    private void actualizarEstadoBtnModificarEliminar() {
+        btnModificar.setDisable(verificarCampoId());
+        btnEliminar.setDisable(verificarCampoId());
+    }
+
+
+    private boolean verificarCampoId() {
+        return txtID.getText().trim().isEmpty();
+    }
 
     // Eventos de cambio en los campos para actualizar el estado del botón
-
     private boolean verificarCamposVacios() {
         return txtID.getText().trim().isEmpty()
                 && txtNombre.getText().trim().isEmpty()
