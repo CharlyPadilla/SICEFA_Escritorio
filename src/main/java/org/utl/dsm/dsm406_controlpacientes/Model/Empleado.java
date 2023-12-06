@@ -1,17 +1,17 @@
 package org.utl.dsm.dsm406_controlpacientes.Model;
 
 public class Empleado {
-    public Integer idEmpleado;
+    public int idEmpleado;
     public String codigoEmpleado;
     public String fechaIngresoEmpleado;
     public String puestoEmpleado;
     public Float salarioBrutoEmpleado;
-    public Boolean activoEmpleado;
+    public int activoEmpleado;
     public Persona personaEmpleado;
     public Usuario usuarioEmpleado;
     public Sucursal sucursalEmpleado;
 
-    public Empleado(Integer idEmpleado, String codigoEmpleado, String fechaIngresoEmpleado, String puestoEmpleado, Float salarioBrutoEmpleado, Boolean activoEmpleado, Persona personaEmpleado, Usuario usuarioEmpleado, Sucursal sucursalEmpleado) {
+    public Empleado(int idEmpleado, String codigoEmpleado, String fechaIngresoEmpleado, String puestoEmpleado, Float salarioBrutoEmpleado, int activoEmpleado, Persona personaEmpleado, Usuario usuarioEmpleado, Sucursal sucursalEmpleado) {
         this.idEmpleado = idEmpleado;
         this.codigoEmpleado = codigoEmpleado;
         this.fechaIngresoEmpleado = fechaIngresoEmpleado;
@@ -23,11 +23,15 @@ public class Empleado {
         this.sucursalEmpleado = sucursalEmpleado;
     }
 
-    public Integer getIdEmpleado() {
+    public Empleado() {
+
+    }
+
+    public int getIdEmpleado() {
         return idEmpleado;
     }
 
-    public void setIdEmpleado(Integer idEmpleado) {
+    public void setIdEmpleado(int idEmpleado) {
         this.idEmpleado = idEmpleado;
     }
 
@@ -63,11 +67,11 @@ public class Empleado {
         this.salarioBrutoEmpleado = salarioBrutoEmpleado;
     }
 
-    public Boolean getActivoEmpleado() {
+    public int getActivoEmpleado() {
         return activoEmpleado;
     }
 
-    public void setActivoEmpleado(Boolean activoEmpleado) {
+    public void setActivoEmpleado(int activoEmpleado) {
         this.activoEmpleado = activoEmpleado;
     }
 

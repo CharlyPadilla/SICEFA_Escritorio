@@ -93,7 +93,7 @@ public class ControllerLoginSucursal implements Initializable {
     }
     public void login() throws IOException, UnirestException {
         String usuarioInexistente = "{\"Mensaje\":\"usuario inexistente\"}";
-        String contraseniaIncorrecta = "{\"Mensaje\":\"Contrasenia incorrecta\"}";
+        String contraseniaIncorrecta = "{\"Mensaje\":\"Contraseña incorrecta\"}";
         String user, password;
         user = txtUser.getText();
         password = txtPasword.getText();
