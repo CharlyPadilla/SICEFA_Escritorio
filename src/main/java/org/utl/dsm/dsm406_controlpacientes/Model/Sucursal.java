@@ -13,7 +13,7 @@ public class Sucursal {
     public String telefonoSucursal;
     public String latitulSucursal;
     public String longitudSucursal;
-    public boolean estatusSucursal;
+    public Integer estatusSucursal;
 
     public Sucursal(String nombreSucursal, String titularSucursal, String rfcSucursal, String domicilioSucursal, String coloniaSucursal, String codigoPostalSucursal, String ciudadSucursal, String estadoSucursal, String telefonoSucursal, String latitulSucursal, String longitudSucursal) {
         this.nombreSucursal = nombreSucursal;
@@ -29,7 +29,7 @@ public class Sucursal {
         this.longitudSucursal = longitudSucursal;
     }
 
-    public Sucursal(int idSucursal, String nombreSucursal, String titularSucursal, String rfcSucursal, String domicilioSucursal, String coloniaSucursal, String codigoPostalSucursal, String ciudadSucursal, String estadoSucursal, String telefonoSucursal, String latitulSucursal, String longitudSucursal, boolean estatusSucursal) {
+    public Sucursal(int idSucursal, String nombreSucursal, String titularSucursal, String rfcSucursal, String domicilioSucursal, String coloniaSucursal, String codigoPostalSucursal, String ciudadSucursal, String estadoSucursal, String telefonoSucursal, String latitulSucursal, String longitudSucursal, Integer estatusSucursal) {
         this.idSucursal = idSucursal;
         this.nombreSucursal = nombreSucursal;
         this.titularSucursal = titularSucursal;
@@ -43,6 +43,21 @@ public class Sucursal {
         this.latitulSucursal = latitulSucursal;
         this.longitudSucursal = longitudSucursal;
         this.estatusSucursal = estatusSucursal;
+    }
+
+    public Sucursal(int idSucursal, String nombreSucursal, String titularSucursal, String rfcSucursal, String domicilioSucursal, String coloniaSucursal, String codigoPostalSucursal, String ciudadSucursal, String estadoSucursal, String telefonoSucursal, String latitulSucursal, String longitudSucursal) {
+        this.idSucursal = idSucursal;
+        this.nombreSucursal = nombreSucursal;
+        this.titularSucursal = titularSucursal;
+        this.rfcSucursal = rfcSucursal;
+        this.domicilioSucursal = domicilioSucursal;
+        this.coloniaSucursal = coloniaSucursal;
+        this.codigoPostalSucursal = codigoPostalSucursal;
+        this.ciudadSucursal = ciudadSucursal;
+        this.estadoSucursal = estadoSucursal;
+        this.telefonoSucursal = telefonoSucursal;
+        this.latitulSucursal = latitulSucursal;
+        this.longitudSucursal = longitudSucursal;
     }
 
     public int getIdSucursal() {
@@ -141,11 +156,11 @@ public class Sucursal {
         this.longitudSucursal = longitudSucursal;
     }
 
-    public boolean isEstatusSucursal() {
+    public Integer isEstatusSucursal() {
         return estatusSucursal;
     }
 
-    public void setEstatusSucursal(boolean estatusSucursal) {
+    public void setEstatusSucursal(Integer estatusSucursal) {
         this.estatusSucursal = estatusSucursal;
     }
 
