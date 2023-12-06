@@ -27,11 +27,33 @@ public class ControllerInterfazLogin implements Initializable {
                 throw new RuntimeException(e);
             }
         });
+
+        btnIniciarSesionCentral.setOnAction(event -> {
+            try {
+                iniciarSesionCentral();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     public void iniciarSesionSucursal() throws IOException {
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(Main.class.getResource("view_login.fxml"));
+        Parent root = FXMLLoader.load(Main.class.getResource("view_loginSucursal.fxml"));
+        Scene scene = new Scene(root,400,250);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.setTitle("Medicamos tu Vida");
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.show();
+
+        Stage ventanaLogin = (Stage) btnIniciarSesionSucursal.getScene().getWindow();
+        ventanaLogin.close();
+    }
+
+    public void iniciarSesionCentral() throws IOException {
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(Main.class.getResource("view_loginCentral.fxml"));
         Scene scene = new Scene(root,400,250);
         stage.setScene(scene);
         stage.setResizable(false);

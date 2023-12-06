@@ -89,12 +89,12 @@
                <Button fx:id="btnBarraClientes" mnemonicParsing="false" text="Clientes" textFill="WHITE" />
                <Button fx:id="btnBarraEmpleados" mnemonicParsing="false" text="Empleados" textFill="WHITE" />
                <Button fx:id="btnBarraProductos" mnemonicParsing="false" text="Productos" textFill="WHITE" />
-               <Button fx:id="btnBarraPedidos" mnemonicParsing="false" text="Pedidos" textFill="WHITE" />
+               <Button fx:id="btnBarraCompras" mnemonicParsing="false" text="Compras" textFill="WHITE" />
                <Button fx:id="btnBarraVentas" mnemonicParsing="false" text="Ventas" textFill="WHITE" />
                <MenuButton fx:id="menuOpciones" mnemonicParsing="false" styleClass="menu-button" text="Opciones" textFill="WHITE">
                   <items>
                      <MenuItem mnemonicParsing="false" text="Cambiar Contraseña" />
-                     <MenuItem mnemonicParsing="false" text="Cerrar Sesión" />
+                     <MenuItem fx:id="btnCerrarSesion" mnemonicParsing="false" text="Cerrar Sesión" />
                   </items>
                </MenuButton>
             </children>

@@ -1,7 +1,5 @@
 package org.utl.dsm.dsm406_controlpacientes.Controller;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,30 +15,27 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ControllerInicioSucursal implements Initializable {
+public class ControllerGestionPedidos implements Initializable {
 
     @FXML private Button btnBarraInicio;
-    @FXML private Button btnBarraClientes;
-    @FXML private Button btnBarraEmpleados;
-    @FXML private Button btnBarraCompras;
+    @FXML private Button btnBarraSucursales;
     @FXML private Button btnBarraProductos;
-    @FXML private Button btnBarraVentas;
-    @FXML private MenuButton menuOpciones;
+    @FXML private Button btnBarraPedidos;
     @FXML private MenuItem btnCerrarSesion;
-
+    @FXML private MenuButton menuOpciones;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        btnBarraClientes.setOnAction(event -> {
+        btnBarraInicio.setOnAction(event -> {
             try {
-                abrirModuloClientes();
+                abrirInicio();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
 
-        btnBarraEmpleados.setOnAction(event -> {
+        btnBarraSucursales.setOnAction(event -> {
             try {
-                abrirModuloEmpleados();
+                abrirModuloSucursales();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -48,23 +43,15 @@ public class ControllerInicioSucursal implements Initializable {
 
         btnBarraProductos.setOnAction(event -> {
             try {
-                abrirModuloBuscarProductos();
+                abrirModuloProductos();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
 
-        btnBarraCompras.setOnAction(event -> {
+        btnBarraPedidos.setOnAction(event -> {
             try {
-                abrirModuloCompras();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-        btnBarraVentas.setOnAction(event -> {
-            try {
-                abrirModuloVentas();
+                abrirModuloPedidos();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -77,35 +64,36 @@ public class ControllerInicioSucursal implements Initializable {
                 throw new RuntimeException(e);
             }
         });
+
     }
 
-    private void abrirModuloEmpleados() throws IOException {
+    private void abrirInicio() throws IOException {
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(Main.class.getResource("view_gestionEmpleados.fxml"));
+        Parent root = FXMLLoader.load(Main.class.getResource("view_inicioCentral.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Medicamos tu vida");
         stage.show();
         // Para cerrar la ventana Login:
-        Stage ventanaLogin = (Stage) btnBarraEmpleados.getScene().getWindow();
+        Stage ventanaLogin = (Stage) btnBarraInicio.getScene().getWindow();
         ventanaLogin.close();
     }
 
-    private void abrirModuloClientes() throws IOException {
+    private void abrirModuloSucursales() throws IOException {
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(Main.class.getResource("view_gestionClientes.fxml"));
+        Parent root = FXMLLoader.load(Main.class.getResource("view_gestionSucursales.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Medicamos tu vida");
         stage.show();
         // Para cerrar la ventana Login:
-        Stage ventanaLogin = (Stage) btnBarraClientes.getScene().getWindow();
+        Stage ventanaLogin = (Stage) btnBarraSucursales.getScene().getWindow();
         ventanaLogin.close();
     }
 
-    private void abrirModuloBuscarProductos() throws IOException {
+    private void abrirModuloProductos() throws IOException {
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(Main.class.getResource("view_busquedaProductos.fxml"));
+        Parent root = FXMLLoader.load(Main.class.getResource("view_gestionProductos.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Medicamos tu vida");
@@ -115,27 +103,15 @@ public class ControllerInicioSucursal implements Initializable {
         ventanaLogin.close();
     }
 
-    private void abrirModuloCompras() throws IOException {
+    private void abrirModuloPedidos() throws IOException {
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(Main.class.getResource("view_gestionCompras.fxml"));
+        Parent root = FXMLLoader.load(Main.class.getResource("view_gestionPedidos.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Medicamos tu vida");
         stage.show();
         // Para cerrar la ventana Login:
-        Stage ventanaLogin = (Stage) btnBarraCompras.getScene().getWindow();
-        ventanaLogin.close();
-    }
-
-    private void abrirModuloVentas() throws IOException {
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(Main.class.getResource("view_gestionVentas.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Medicamos tu vida");
-        stage.show();
-        // Para cerrar la ventana Login:
-        Stage ventanaLogin = (Stage) btnBarraVentas.getScene().getWindow();
+        Stage ventanaLogin = (Stage) btnBarraPedidos.getScene().getWindow();
         ventanaLogin.close();
     }
 

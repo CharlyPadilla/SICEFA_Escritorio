@@ -5,7 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 import org.utl.dsm.dsm406_controlpacientes.Main;
 
@@ -13,7 +15,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ControllerGestionEmpleados implements Initializable {
+public class ControllerBusquedaProductos  implements Initializable {
+
     @FXML private Button btnBarraClientes;
     @FXML private Button btnBarraEmpleados;
     @FXML private Button btnBarraInicio;
@@ -22,36 +25,6 @@ public class ControllerGestionEmpleados implements Initializable {
     @FXML private Button btnBarraVentas;
     @FXML private MenuButton menuOpciones;
     @FXML private MenuItem btnCerrarSesion;
-
-    @FXML private Button btnEliminar;
-    @FXML private Button btnLimpiar;
-    @FXML private Button btnModificar;
-    @FXML private Button btnRegistrar;
-
-    @FXML private TableView<?> tblRegistros;
-    @FXML private TableColumn<?, ?> tcolApellidoM;
-    @FXML private TableColumn<?, ?> tcolApellidoP;
-    @FXML private TableColumn<?, ?> tcolEstatus;
-    @FXML private TableColumn<?, ?> tcolNombre;
-
-    @FXML private TextField txtApellidoM;
-    @FXML private TextField txtApellidoP;
-    @FXML private TextField txtBuscar;
-    @FXML private TextField txtCiudad;
-    @FXML private TextField txtCodigoPostal;
-    @FXML private TextField txtColonia;
-    @FXML private TextField txtCorreo;
-    @FXML private TextField txtCurp;
-    @FXML private TextField txtDomicilio;
-    @FXML private TextField txtEstado;
-    @FXML private DatePicker txtFechaNac;
-    @FXML private TextField txtFoto;
-    @FXML private TextField txtGenero;
-    @FXML private TextField txtID;
-    @FXML private TextField txtNombre;
-    @FXML private TextField txtRfc;
-    @FXML private TextField txtTelefono;
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -112,8 +85,6 @@ public class ControllerGestionEmpleados implements Initializable {
             }
         });
     }
-
-
 
     private void abrirInicio() throws IOException {
         Stage stage = new Stage();

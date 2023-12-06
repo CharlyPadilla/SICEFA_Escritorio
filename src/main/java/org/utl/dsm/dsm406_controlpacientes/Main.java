@@ -34,7 +34,7 @@ public class Main extends Application {
 }
 /*
  root = FXMLLoader.load(Main.class.getResource("view_gestionClientes.fxml"));
-        //root= FXMLLoader.load(this.getClass().getResource("view_login.fxml"));
+        //root= FXMLLoader.load(this.getClass().getResource("view_loginSucursal.fxml"));
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("style/mystyle.css").toExternalForm());
         primaryStage.setScene(scene);

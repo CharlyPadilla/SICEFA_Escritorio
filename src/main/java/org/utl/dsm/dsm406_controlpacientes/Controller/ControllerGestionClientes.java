@@ -33,10 +33,10 @@ import org.utl.dsm.dsm406_controlpacientes.Model.Persona;
 
 public class ControllerGestionClientes implements Initializable {
 
+    @FXML private Button btnBarraInicio;
     @FXML private Button btnBarraClientes;
     @FXML private Button btnBarraEmpleados;
-    @FXML private Button btnBarraInicio;
-    @FXML private Button btnBarraPedidos;
+    @FXML private Button btnBarraCompras;
     @FXML private Button btnBarraProductos;
     @FXML private Button btnBarraVentas;
     @FXML private MenuButton menuOpciones;
@@ -101,6 +101,22 @@ public class ControllerGestionClientes implements Initializable {
         btnBarraProductos.setOnAction(event -> {
             try {
                 abrirModuloProductos();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        btnBarraCompras.setOnAction(event -> {
+            try {
+                abrirModuloCompras();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        btnBarraVentas.setOnAction(event -> {
+            try {
+                abrirModuloVentas();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -173,19 +189,6 @@ public class ControllerGestionClientes implements Initializable {
     }
 
 
-
-    private void cerrarSesion() throws IOException {
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load (Main.class.getResource("view_principal.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Medicamos tu vida");
-        stage.show();
-        // Para cerrar la ventana Login:
-        Stage ventanaLogin = (Stage) menuOpciones.getScene().getWindow();
-        ventanaLogin.close();
-    }
-
     private void abrirInicio() throws IOException {
         Stage stage = new Stage();
         Parent root = FXMLLoader.load (Main.class.getResource("view_inicioSucursal.fxml"));
@@ -213,7 +216,7 @@ public class ControllerGestionClientes implements Initializable {
 
     private void abrirModuloClientes() throws IOException {
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(Main.class.getResource("view_GestionClientes.fxml"));
+        Parent root = FXMLLoader.load(Main.class.getResource("view_gestionClientes.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Medicamos tu vida");
@@ -225,7 +228,7 @@ public class ControllerGestionClientes implements Initializable {
 
     private void abrirModuloProductos() throws IOException {
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(Main.class.getResource("view_gestionProductos.fxml"));
+        Parent root = FXMLLoader.load(Main.class.getResource("view_busquedaProductos.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Medicamos tu vida");
@@ -234,6 +237,44 @@ public class ControllerGestionClientes implements Initializable {
         Stage ventanaLogin = (Stage) btnBarraProductos.getScene().getWindow();
         ventanaLogin.close();
     }
+
+    private void abrirModuloCompras() throws IOException {
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(Main.class.getResource("view_gestionCompras.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Medicamos tu vida");
+        stage.show();
+        // Para cerrar la ventana Login:
+        Stage ventanaLogin = (Stage) btnBarraCompras.getScene().getWindow();
+        ventanaLogin.close();
+    }
+
+    private void abrirModuloVentas() throws IOException {
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(Main.class.getResource("view_gestionVentas.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Medicamos tu vida");
+        stage.show();
+        // Para cerrar la ventana Login:
+        Stage ventanaLogin = (Stage) btnBarraVentas.getScene().getWindow();
+        ventanaLogin.close();
+    }
+
+    private void cerrarSesion() throws IOException {
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load (Main.class.getResource("view_principal.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Medicamos tu vida");
+        stage.show();
+        // Para cerrar la ventana Login:
+        Stage ventanaLogin = (Stage) menuOpciones.getScene().getWindow();
+        ventanaLogin.close();
+    }
+
+
 
     public void cargarTabla() throws UnirestException {
         HttpResponse<JsonNode> apiResponse = null;
